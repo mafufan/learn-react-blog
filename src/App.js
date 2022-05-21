@@ -24,29 +24,24 @@ function App() {
   let [따봉, 따봉변경] = useState(따봉배열);
   // let [따봉, 따봉변경] = useState(0,0,0);
 
+  function 정렬() {
+    let copy = [...글제목];
+    copy.sort();
+    글제목변경(copy);
+  }
+  function 수정() {
+    let copy = [...글제목];
+    copy[0] = '여자 코트 추천';
+    글제목변경(copy);
+  }
+
   return (
     <div className="App">
       <div className="black-nav">
         <div>개발 blog</div>
       </div>
-      <button
-        onClick={() => {
-          let copy = [...글제목];
-          copy.sort();
-          글제목변경(copy);
-        }}
-      >
-        정렬 버튼
-      </button>
-      <button
-        onClick={() => {
-          let copy = [...글제목];
-          copy[0] = '여자 코트 추천';
-          글제목변경(copy);
-        }}
-      >
-        수정
-      </button>
+      <button onClick={정렬}>정렬 버튼</button>
+      <button onClick={수정}>수정 버튼</button>
       {글제목.map(function (a, i) {
         return (
           <div className="list" key="i">
@@ -70,7 +65,18 @@ function App() {
               {따봉[i]}
             </h4>
             <p>2월 18일 발행</p>
-            {modal[i] == true ? <Modal /> : null}
+            {modal[i] == true ? (
+              <Modal
+                i={i}
+                color={'skyblue'}
+                글제목={글제목}
+                수정={() => {
+                  let copy = [...글제목];
+                  copy[i] = '여자 코트 추천';
+                  글제목변경(copy);
+                }}
+              ></Modal>
+            ) : null}
           </div>
         );
       })}
@@ -78,13 +84,17 @@ function App() {
   );
 }
 
-function Modal() {
+function Modal(props) {
   return (
     <div>
-      <div className="modal">
-        <h4>제목</h4>
+      <div
+        className="modal"
+        style={{ background: props.color }}
+      >
+        <h4>{props.글제목[props.i]}</h4>
         <p>날짜</p>
         <p>상세내용</p>
+        <button onClick={props.수정}>수정</button>
       </div>
     </div>
   );

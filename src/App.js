@@ -71,8 +71,12 @@ function App() {
               <button
                 onClick={e => {
                   e.stopPropagation();
-                  글제목.splice(i, 1);
-                  따봉.splice(i, 1);
+                  let copy글제목 = [...글제목];
+                  let copy따봉 = [...따봉];
+                  copy글제목.splice(i, 1);
+                  copy따봉.splice(i, 1);
+                  글제목변경(copy글제목);
+                  따봉변경(copy따봉);
                 }}
               >
                 삭제
@@ -103,8 +107,12 @@ function App() {
       />
       <button
         onClick={() => {
-          글제목.unshift(입력값);
-          따봉.unshift(0);
+          let copy글제목 = [...글제목];
+          let copy따봉 = [...따봉];
+          copy글제목.unshift(입력값);
+          copy따봉.unshift(0);
+          글제목변경(copy글제목);
+          따봉변경(copy따봉);
         }}
       >
         등록

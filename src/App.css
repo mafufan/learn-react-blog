@@ -2,9 +2,19 @@
   text-align: center;
 }
 
+.title {
+  cursor: pointer;
+}
+.따봉 {
+  cursor: pointer;
+}
 div {
   box-sizing: border-box;
 }
+button {
+  cursor: pointer;
+}
+
 .list {
   padding-left: 20px;
   text-align: left;

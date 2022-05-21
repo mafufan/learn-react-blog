@@ -10,6 +10,8 @@ function App() {
     '파이썬 독학',
   ]);
 
+  let [입력값, 입력값변경] = useState(['']);
+
   let modal배열 = [];
   글제목.map(function (a, i) {
     modal배열.push(false);
@@ -44,8 +46,9 @@ function App() {
       <button onClick={수정}>수정 버튼</button>
       {글제목.map(function (a, i) {
         return (
-          <div className="list" key="i">
+          <div className="list" key={i}>
             <h4
+              className="title"
               onClick={() => {
                 let copy = [...modal];
                 copy[i] = copy[i] ? false : true;
@@ -54,7 +57,9 @@ function App() {
             >
               {글제목[i]}
               <span
-                onClick={() => {
+                className="따봉"
+                onClick={e => {
+                  e.stopPropagation(); // 이벤트 버블링 방지
                   let copy = [...따봉];
                   copy[i]++;
                   따봉변경(copy);
@@ -62,7 +67,16 @@ function App() {
               >
                 👍
               </span>
-              {따봉[i]}
+              {' ' + 따봉[i] + ' '}
+              <button
+                onClick={e => {
+                  e.stopPropagation();
+                  글제목.splice(i, 1);
+                  따봉.splice(i, 1);
+                }}
+              >
+                삭제
+              </button>
             </h4>
             <p>2월 18일 발행</p>
             {modal[i] == true ? (
@@ -80,6 +94,21 @@ function App() {
           </div>
         );
       })}
+      <input
+        type="text"
+        onChange={e => {
+          입력값변경(e.target.value);
+          console.log(e.target.value);
+        }}
+      />
+      <button
+        onClick={() => {
+          글제목.unshift(입력값);
+          따봉.unshift(0);
+        }}
+      >
+        등록
+      </button>
     </div>
   );
 }

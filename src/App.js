@@ -67,7 +67,7 @@ function App() {
             <p>2월 18일 발행</p>
             {modal[i] == true ? (
               <Modal
-                i={i}
+                title={i}
                 color={'skyblue'}
                 글제목={글제목}
                 수정={() => {
@@ -91,7 +91,7 @@ function Modal(props) {
         className="modal"
         style={{ background: props.color }}
       >
-        <h4>{props.글제목[props.i]}</h4>
+        <h4>{props.글제목[props.title]}</h4>
         <p>날짜</p>
         <p>상세내용</p>
         <button onClick={props.수정}>수정</button>
